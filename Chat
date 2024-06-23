@@ -1,0 +1,32 @@
+Se você pretende automatizar o processo de build e deploy de cada projeto utilizando Jenkins, é possível que você não precise dos arquivos docker-compose.yml individuais para cada projeto. O papel do Jenkins seria gerenciar e executar esses processos de forma automatizada, e o Docker Compose centralizado na pasta API_IOT_INFRA ainda seria útil para orquestrar a infraestrutura como um todo.
+
+Como Jenkins Pode Ser Configurado
+Configuração dos Jobs do Jenkins:
+
+Para cada projeto (backend_spring, backend_express, front_react), você pode configurar um job no Jenkins para lidar com o build e push das imagens Docker.
+Utilização dos Dockerfiles:
+
+Cada projeto possui seu próprio Dockerfile que define como a imagem Docker deve ser construída. Esses Dockerfiles são essenciais para o Jenkins, pois o Jenkins usará esses arquivos para construir as imagens Docker.
+Utilização do Docker Compose na Infraestrutura:
+
+O docker-compose.yml na pasta API_IOT_INFRA ainda é necessário para definir como os diferentes serviços (contêineres) se comunicam entre si e para configurar qualquer volume, rede ou dependência entre eles. Esse arquivo não é substituído pelo Jenkins; ele complementa o gerenciamento de infraestrutura.
+Processo Automatizado:
+
+No Jenkins, você configuraria um job para cada projeto que precisasse ser construído e implantado. Cada job usaria os passos adequados para buildar a imagem Docker utilizando o Dockerfile correspondente e, em seguida, realizar o push dessa imagem para um registro de contêineres (como Docker Hub ou um registro privado).
+Exemplo de Configuração no Jenkins
+Supondo que você tenha um Jenkins configurado e conectado ao seu repositório Git (GitHub, por exemplo):
+
+Job para backend_spring:
+
+Configuração para buildar a imagem Docker a partir do Dockerfile em backend_spring/API_IOT_BACKEND_SPRING_BOOT e fazer o push da imagem para um registro de contêineres.
+Job para backend_express:
+
+Configuração para buildar a imagem Docker a partir do Dockerfile em backend_express/API_IOT_BACKEND_EXPRESS e fazer o push da imagem para um registro de contêineres.
+Job para front_react:
+
+Configuração para buildar a imagem Docker a partir do Dockerfile em front_react e fazer o push da imagem para um registro de contêineres.
+Orquestração com Docker Compose:
+
+Um job separado ou uma etapa dentro de um job principal pode ser configurado para utilizar o docker-compose.yml em API_IOT_INFRA para levantar a infraestrutura completa (contêineres Docker) após os builds individuais dos projetos.
+Conclusão
+Portanto, ao automatizar com Jenkins, você não necessariamente precisa dos arquivos docker-compose.yml individuais para cada pasta de projeto. O foco estará nos Dockerfiles para construir as imagens Docker de cada projeto e no docker-compose.yml centralizado para orquestrar a infraestrutura. O Jenkins coordena o processo de build, teste e deploy, integrando-se com esses elementos para automatizar o ciclo de vida da aplicação de forma eficiente.
