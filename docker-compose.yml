@@ -28,7 +28,7 @@ services:
       - my-network
 
   backend_spring:
-    build: ../backend_spring/API_IOT_BACKEND_SPRING_BOOT
+    build: ../API_IOT_BACKEND_SPRING_BOOT
     ports:
       - "8080:8080"
     environment:
@@ -41,7 +41,7 @@ services:
       - my-network
 
   backend_express:
-    build: ../backend_express/API_IOT_BACKEND_EXPRESS
+    build: ../API_IOT_BACKEND_EXPRESS
     ports:
       - "3000:3000"
     depends_on:
@@ -50,7 +50,7 @@ services:
       - my-network
 
   front_react:
-    build: ../front_react
+    build: ../API_IOT_FRONT_REACT
     ports:
       - "3001:80"
     networks:
